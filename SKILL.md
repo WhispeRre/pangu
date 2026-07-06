@@ -1,11 +1,11 @@
 ---
 name: pangu-skill
-description: "Pangu Skill 1.0 (盘古.skill 1.0): autonomous skill optimizer derived from Darwin Skill 2.0 mechanics. Uses the SkillLens 9-dimension rubric + SkillOpt-style validation-gated edits + human-in-the-loop checkpoints to evaluate and improve SKILL.md files. Runs baseline scoring, test-prompt validation, git ratchet keep/revert decisions, independent judge review when available, dry-run fallback when unavailable, and visual result-card generation. Use when user mentions \"优化skill\", \"skill评分\", \"自动优化\", \"auto optimize\", \"skill质量检查\", \"盘古\", \"pangu\", \"帮我改改skill\", \"skill怎么样\", \"提升skill质量\", \"skill review\", \"skill打分\"."
+description: "Pangu Skill 1.0 (盘古.skill 1.0): autonomous Agent Skill quality evaluator and validation optimizer. Uses a 9-dimension rubric, test-prompt validation, git ratchet keep/revert decisions, independent judge review when available, dry-run fallback when unavailable, human-in-the-loop checkpoints, and visual result-card generation to evaluate and improve SKILL.md files. Use when user mentions \"优化skill\", \"skill评分\", \"自动优化\", \"auto optimize\", \"skill质量检查\", \"盘古\", \"pangu\", \"帮我改改skill\", \"skill怎么样\", \"提升skill质量\", \"skill review\", \"skill打分\"."
 ---
 
 # Pangu Skill 1.0
 
-> **v1.0 · 2026-07-06** — A Pangu-branded replica of Darwin Skill 2.0's optimizer architecture: SkillLens 9-dimension rubric + SkillOpt-style validation-gated edits + human-in-the-loop checkpoints.
+> **v1.0 · 2026-07-06** — An Agent Skill quality evaluator and validation optimizer built around a 9-dimension rubric, test-prompt validation, git ratchet decisions, and human-in-the-loop checkpoints.
 >
 > Core idea: **evaluate → improve → validate → human confirm → keep or revert → generate result cards**.
 > Project identity: `pangu-skill`.
