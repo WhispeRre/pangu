@@ -119,7 +119,14 @@ references/runtime-neutrality.md Runtime-neutrality scan rules
 references/skilllens-evidence.md Evidence behind the rubric and validation loop
 templates/                       Result-card templates
 scripts/screenshot.mjs           Result-card screenshot helper
+package.json                     Node dependency entry for screenshot generation
 README.md / README_EN.md         Project documentation
+```
+
+The result-card screenshot helper depends on Playwright. Before first use, run:
+
+```bash
+npm install
 ```
 
 ---

@@ -7,6 +7,9 @@
 
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const require = createRequire(import.meta.url);
 
@@ -26,7 +29,13 @@ const htmlPath = process.argv[2] || new URL('../templates/result-card.html', imp
 const outputPath = process.argv[3] || '/tmp/pangu-result-card.png';
 
 async function screenshot() {
-  const browser = await chromium.launch();
+  const launchOptions = {};
+  const localChromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+  if (existsSync(localChromePath)) {
+    launchOptions.executablePath = localChromePath;
+  }
+
+  const browser = await chromium.launch(launchOptions);
 
   try {
     const context = await browser.newContext({
@@ -35,7 +44,7 @@ async function screenshot() {
     });
 
     const page = await context.newPage();
-    await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle' });
+    await page.goto(pathToFileURL(resolve(htmlPath)).href, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(1000);
 

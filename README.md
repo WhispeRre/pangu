@@ -119,7 +119,14 @@ references/runtime-neutrality.md runtime 中立性检查规则
 references/skilllens-evidence.md rubric 与验证机制的依据
 templates/                       结果卡片模板
 scripts/screenshot.mjs           结果卡片截图脚本
+package.json                     截图脚本的 Node 依赖入口
 README.md / README_EN.md         项目说明
+```
+
+结果卡片截图脚本依赖 Playwright。首次使用前在项目目录运行：
+
+```bash
+npm install
 ```
 
 ---
