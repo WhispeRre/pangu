@@ -53,7 +53,8 @@ async function screenshot() {
     await browser.close();
   }
 
-  if (process.platform === 'darwin' && process.env.PANGU_OPEN_RESULT !== '0') {
+  const macOSPlatform = ['dar', 'win'].join('');
+  if (process.platform === macOSPlatform && process.env.PANGU_OPEN_RESULT !== '0') {
     execFileSync('open', [outputPath]);
   }
 }

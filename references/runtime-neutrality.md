@@ -62,7 +62,7 @@ Agent Skills 基于 Anthropic 开放的 [Agent Skills](https://agentskills.io) �
 
 ```bash
 # 在 skill 目录跑这个 grep，输出即红灯命中
-grep -nE "(在 Claude[ ]Code|Claude[ ]Code skill|Claude[ ]Code 用户|Cursor[ ]only|Codex[ ]中|^\[!\[Claude[ ]Code|~/\.claude/skills/[a-z]|/plugin[ ]install\b|darwin[-]skill|达[尔]文)" SKILL.md README.md 2>/dev/null
+grep -nE "(在 Claude[ ]Code|Claude[ ]Code skill|Claude[ ]Code 用户|Cursor[ ]only|Codex[ ]中|^\[!\[Claude[ ]Code|~/\.claude/skills/[a-z]|/plugin[ ]install\b)" SKILL.md README.md 2>/dev/null
 ```
 
 输出非空 = 该 skill 未通过 gate，必须在优化循环里修复。

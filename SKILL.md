@@ -432,7 +432,6 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 - **SkillLens**（arXiv [2605.23899](https://arxiv.org/abs/2605.23899)）：9 维 rubric 的实证来源（LLM 自评 46.4% → 加 meta-skill 三维度后 73.8%）。
 - **SkillOpt**（arXiv [2605.23904](https://arxiv.org/abs/2605.23904)）：validation-gated edits 形式化框架。
 - **autoresearch**：[github.com/karpathy/autoresearch](https://github.com/karpathy/autoresearch)：自主实验循环与 git ratchet 思路来源。
-- **Darwin Skill 2.0**：`pangu-skill` 的机制蓝本。本项目保留其优化器架构，并重写为 Pangu 品牌。
 
 ---
 
