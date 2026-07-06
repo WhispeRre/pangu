@@ -16,8 +16,10 @@
 - 带上这个 skill 后，agent 的实际输出有没有变好？
 
 ```bash
-npx skills add pangu-skill
+npx skills add WhispeRre/pangu@pangu-skill --agent codex --global --yes
 ```
+
+`skills add` 的参数是 GitHub 仓库源；`pangu-skill` 是仓库里的 skill 名称，不是独立仓库名。
 
 ---
 

@@ -16,8 +16,10 @@ It is not just a format checker. It asks two practical questions:
 - Does the agent produce better output when the skill is used?
 
 ```bash
-npx skills add pangu-skill
+npx skills add WhispeRre/pangu@pangu-skill --agent codex --global --yes
 ```
+
+`skills add` expects a GitHub repository source; `pangu-skill` is the skill name inside this repository, not a standalone repository name.
 
 ---
 
