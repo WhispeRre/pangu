@@ -115,19 +115,19 @@ Typical outputs include:
 ## Project Structure
 
 ```text
-SKILL.md                         Core workflow and scoring rules
-test-prompts.json                Self-test prompts for pangu-skill
-references/runtime-neutrality.md Runtime-neutrality scan rules
-references/skilllens-evidence.md Evidence behind the rubric and validation loop
-templates/                       Result-card templates
-scripts/screenshot.mjs           Result-card screenshot helper
-package.json                     Node dependency entry for screenshot generation
 README.md / README_EN.md         Project documentation
+pangu-skill/SKILL.md             Core workflow and scoring rules
+pangu-skill/test-prompts.json    Self-test prompts for pangu-skill
+pangu-skill/references/          Runtime-neutrality and rubric evidence
+pangu-skill/templates/           Result-card templates
+pangu-skill/scripts/             Result-card screenshot helper
+pangu-skill/package.json         Node dependency entry for screenshot generation
 ```
 
 The result-card screenshot helper depends on Playwright. Before first use, run:
 
 ```bash
+cd pangu-skill
 npm install
 ```
 
