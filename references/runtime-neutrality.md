@@ -6,11 +6,11 @@
 
 ## 背景
 
-花叔的 skills 基于 Anthropic 开放的 [Agent Skills](https://agentskills.io) 协议，应当能在 Claude Code、Codex、Cursor、OpenClaw、Hermes Agent、CodeBuddy、Workbuddy、Gemini CLI、OpenCode 等 50+ skills-compatible runtime 上通用。
+Agent Skills 基于 Anthropic 开放的 [Agent Skills](https://agentskills.io) 协议，应当能在 Claude Code、Codex、Cursor、OpenClaw、Hermes Agent、CodeBuddy、Workbuddy、Gemini CLI、OpenCode 等 50+ skills-compatible runtime 上通用。
 
-这是 skill 分发力的根本——一个被误判为「单一 runtime 绑定」的 skill，会被其他 agent 直接拒绝安装（实例：nuwa-skill 因 README 写「在 Claude Code 里使用」被 Marvis agent 拒绝）。
+这是 skill 分发力的根本——一个被误判为「单一 runtime 绑定」的 skill，会被其他 agent 直接拒绝安装（实例：某个 skill 因 README 写「在 Claude Code 里使用」被 Marvis agent 拒绝）。
 
-**适用范围**：除非 skill 名字明确声明绑定单一 runtime（如 `huashu-slides-codex`、`xxx-for-claude-code`），所有 skill 必须通过本审查。
+**适用范围**：除非 skill 名字明确声明绑定单一 runtime（如 `example-codex-skill`、`xxx-for-claude-code`），所有 skill 必须通过本审查。
 
 ---
 
@@ -44,7 +44,7 @@
 不是所有 Claude-Code 相关字符都要清除。下面这些是**正当出现**的，不算红灯：
 
 1. **Frontmatter `description` 里的中英文触发词**——这是 skill 入口，其他 runtime 解析 frontmatter 时同样能匹配
-2. **花叔生态内部联动的 skill 名引用**——如「调用 huashu-design」「跟 darwin-skill 配套」
+2. **Agent Skill 生态内部联动的 skill 名引用**——如「调用 example-design-skill」「follows the pangu-skill optimization workflow」
 3. **明确标注的 runtime-specific 章节**——如「### 仅 Claude Code 优化（按需触发）」+ 解释清楚是 nice-to-have
 4. **commit message、changelog、内部脚本**——不属于用户读到的 skill 内容
 
@@ -62,7 +62,7 @@
 
 ```bash
 # 在 skill 目录跑这个 grep，输出即红灯命中
-grep -nE "(在 Claude Code|Claude Code skill|Claude Code 用户|Cursor only|Codex 中|^\[!\[Claude Code|~/\.claude/skills/[a-z]|/plugin install\b)" SKILL.md README.md 2>/dev/null
+grep -nE "(在 Claude Code|Claude Code skill|Claude Code 用户|Cursor only|Codex 中|^\[!\[Claude Code|~/\.claude/skills/[a-z]|/plugin install\b|darwin-skill|达尔文)" SKILL.md README.md 2>/dev/null
 ```
 
 输出非空 = 该 skill 未通过 gate，必须在优化循环里修复。
