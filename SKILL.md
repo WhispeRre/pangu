@@ -1,15 +1,14 @@
 ---
-name: darwin-skill
-description: "Darwin Skill 2.0 (达尔文.skill 2.0): autonomous skill optimizer, v2.0 integrates Microsoft Research SkillLens (arXiv 2605.23899) 9-dim rubric + SkillOpt (arXiv 2605.23904) validation-gated design + human-in-the-loop checkpoints. Evaluates SKILL.md files using a 9-dimension rubric (structure + effectiveness + meta-skill blacklists), runs hill-climbing with git version control, spawns independent judge agents for blind evaluation, validates improvements through test prompts with auto-break on diminishing returns, and generates visual result cards. Use when user mentions \"优化skill\", \"skill评分\", \"自动优化\", \"auto optimize\", \"skill质量检查\", \"达尔文\", \"darwin\", \"帮我改改skill\", \"skill怎么样\", \"提升skill质量\", \"skill review\", \"skill打分\"."
+name: pangu-skill
+description: "Pangu Skill 1.0 (盘古.skill 1.0): autonomous skill optimizer derived from Darwin Skill 2.0 mechanics. Uses the SkillLens 9-dimension rubric + SkillOpt-style validation-gated edits + human-in-the-loop checkpoints to evaluate and improve SKILL.md files. Runs baseline scoring, test-prompt validation, git ratchet keep/revert decisions, independent judge review when available, dry-run fallback when unavailable, and visual result-card generation. Use when user mentions \"优化skill\", \"skill评分\", \"自动优化\", \"auto optimize\", \"skill质量检查\", \"盘古\", \"pangu\", \"帮我改改skill\", \"skill怎么样\", \"提升skill质量\", \"skill review\", \"skill打分\"."
 ---
 
-# Darwin Skill 2.0
+# Pangu Skill 1.0
 
-> **v2.0 · 2026-05-28** — 吸收 Microsoft Research SkillLens（arXiv 2605.23899）的 9 维评分药方 + SkillOpt（arXiv 2605.23904）的 validation-gated 验证机制 + human in the loop 三层守关。
+> **v1.0 · 2026-07-06** — A Pangu-branded replica of Darwin Skill 2.0's optimizer architecture: SkillLens 9-dimension rubric + SkillOpt-style validation-gated edits + human-in-the-loop checkpoints.
 >
-> 借鉴 Karpathy autoresearch 的自主实验循环，对 skills 进行持续优化。
-> 核心理念：**评估 → 改进 → 实测验证 → 人类确认 → 保留或回滚 → 生成成果卡片**
-> GitHub: https://github.com/alchaincyf/darwin-skill
+> Core idea: **evaluate → improve → validate → human confirm → keep or revert → generate result cards**.
+> Project identity: `pangu-skill`.
 
 ---
 
@@ -45,7 +44,7 @@ autoresearch 的精髓：
 
 | # | 维度 | 权重 | 评分标准 |
 |---|------|------|---------|
-| 7 | **整体架构** | 12 | 结构层次清晰、不冗余不遗漏、与花叔生态一致；**冗余/AI腔废话段落（说白了/换句话说/首先其次综上等花叔禁用词）出现一处扣 1 分** |
+| 7 | **整体架构** | 12 | 结构层次清晰、不冗余不遗漏、与Agent Skill 生态一致；**冗余/AI腔废话段落（说白了/换句话说/首先其次综上等AI 套话禁用词）出现一处扣 1 分** |
 | 8 | **实测表现** | 23 | 用测试prompt跑一遍，输出质量是否符合skill宣称的能力 |
 
 ### Meta-skill 维度（6分）— 反例与黑名单
@@ -65,7 +64,7 @@ autoresearch 的精髓：
 rubric 设计依据来自 **SkillLens 论文（arXiv 2605.23899）** + **本机 controlled study**：
 
 - SkillLens 发现 LLM-as-judge 准确率仅 46.4%（接近随机），加入 meta-skill 三维度后升到 73.8%
-- 本机对 huashu-research 做 4 类 degradation → 5 个独立 judge 盲测一致 V1>V2，Δ 均值 +46.5（5/5 high confidence）
+- 本机对 example-research-skill 做 4 类 degradation → 5 个独立 judge 盲测一致 V1>V2，Δ 均值 +46.5（5/5 high confidence）
 
 **结论**：rubric 能识别 gross degradation，但 fine-grained quality difference 仍不可信，**重要决策必须人审**。
 
@@ -100,7 +99,7 @@ grep -nE "(在 Claude Code|Claude Code skill|Claude Code 用户|Cursor only|Code
 
 ### 例外（允许的「Claude Code 痕迹」）
 
-frontmatter 触发词、花叔生态内部 skill 名引用、明确标注 runtime-specific 章节、commit message——这些正当出现，不算红灯。
+frontmatter 触发词、Agent Skill 生态内部 skill 名引用、明确标注 runtime-specific 章节、commit message——这些正当出现，不算红灯。
 
 → 红灯/绿灯完整对照表 + 例外清单详细规则 + Phase 1/2/3 各阶段审查时机见 [references/runtime-neutrality.md](references/runtime-neutrality.md)
 
@@ -166,8 +165,8 @@ for each skill in 优化范围:
 ┌──────────────────────────┬───────┬──────────────┬──────────────┐
 │ Skill                    │ Score │ 结构短板      │ 效果短板      │
 ├──────────────────────────┼───────┼──────────────┼──────────────┤
-│ huashu-proofreading      │ 78    │ 边界条件      │ 测试prompt2  │
-│ huashu-slides            │ 72    │ 指令具体性    │ baseline持平  │
+│ example-skill-a      │ 78    │ 边界条件      │ 测试prompt2  │
+│ example-skill-b            │ 72    │ 指令具体性    │ baseline持平  │
 ├──────────────────────────┼───────┼──────────────┼──────────────┤
 │ 平均                     │ 75    │              │              │
 └──────────────────────────┴───────┴──────────────┴──────────────┘
@@ -261,8 +260,8 @@ for each skill:
 ┌──────────────────────────┬────────┬────────┬────────┐
 │ Skill                    │ Before │ After  │ Δ      │
 ├──────────────────────────┼────────┼────────┼────────┤
-│ huashu-proofreading      │ 78     │ 87     │ +9     │
-│ huashu-slides            │ 72     │ 83     │ +11    │
+│ example-skill-a      │ 78     │ 87     │ +9     │
+│ example-skill-b            │ 72     │ 83     │ +11    │
 ├──────────────────────────┼────────┼────────┼────────┤
 │ 平均                     │ 75     │ 85     │ +10    │
 └──────────────────────────┴────────┴────────┴────────┘
@@ -278,19 +277,19 @@ for each skill:
 
 ```tsv
 timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
-2026-03-31T10:00	baseline	huashu-proofreading	-	78	baseline	-	初始评估	full_test
-2026-03-31T10:05	a1b2c3d	huashu-proofreading	78	84	keep	边界条件	补充fallback	full_test
-2026-03-31T10:10	b2c3d4e	huashu-proofreading	84	82	revert	指令具体性	过度细化	dry_run
+2026-03-31T10:00	baseline	example-skill-a	-	78	baseline	-	初始评估	full_test
+2026-03-31T10:05	a1b2c3d	example-skill-a	78	84	keep	边界条件	补充fallback	full_test
+2026-03-31T10:10	b2c3d4e	example-skill-a	84	82	revert	指令具体性	过度细化	dry_run
 ```
 
 新增 `eval_mode` 列：`full_test`（跑了子agent测试）或 `dry_run`（模拟推演）。
-文件位置：`.claude/skills/darwin-skill/results.tsv`
+文件位置：`.skills/pangu-skill/results.tsv`
 
 ---
 
 ## 实战 high-leverage 操作（精髓速查）
 
-4 条经实战验证（huashu-gpt-image +10.85 / huashu-weread-advisor +14.9 / claude-design +16.5）。详细案例数据见 [references/skilllens-evidence.md](references/skilllens-evidence.md) 的「HL 实战案例」节。
+4 条经实战验证（example-image-skill +10.85 / example-advisor-skill +14.9 / claude-design +16.5）。详细案例数据见 [references/skilllens-evidence.md](references/skilllens-evidence.md) 的「HL 实战案例」节。
 
 - **HL-1（dim4）显性视觉标记是杠杆**：加 🔴 CHECKPOINT / 🛑 STOP，靠「必须」措辞不行——LLM 解析时扫描视觉标记。4 行改动撬动 dim4 +3 分
 - **HL-2（dim3）if-then 三段式 fallback 表**：把「症状/解法」两列升级为「触发条件 / 一线修复 / 仍失败兜底」三段式。SkillLens failure-mechanism encoding 维度的落地
@@ -353,7 +352,7 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 
 ---
 
-## darwin 操作反例黑名单（dim9 应用：darwin 自己优化时不要做的事）
+## pangu 操作反例黑名单（dim9 应用：pangu 自己优化时不要做的事）
 
 来自本机 results.tsv 早期 40 次 0 revert 的教训 + Judge G/H 自指评估暴露的反模式。每条都是**真实踩过的坑**。
 
@@ -378,10 +377,10 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2. **不引入新依赖** — 不添加skill原本没有的scripts或references文件
 3. **每轮只改一个维度** — 避免多个变更导致无法归因
 4. **保持文件大小合理** — 优化后SKILL.md不应超过原始大小的150%
-5. **尊重花叔风格** — 中文为主、简洁为上
+5. **尊重当前 skill 风格** — 中文为主、简洁为上
 6. **可回滚** — 所有改动在git分支上，用git revert而非reset --hard
 7. **评分独立性** — 效果维度必须用子agent或至少干跑验证，不能在同一上下文里「改完直接评」
-8. **Runtime 中立性** — skill 必须能在 Claude Code、Codex、Cursor、OpenClaw、Hermes 等任何 skills-compatible runtime 中正常运行。除非 skill 名明确绑定单一 runtime（如 `xxx-codex`、`huashu-slides-codex`），任何「在 Claude Code 里」「Claude Code skill」「单一 badge 钉死」「安装命令只给 `.claude/skills/` 一种路径」都视为 gate 不通过，须在 P0 优先修复（详见「Runtime 适配性审查」章节）
+8. **Runtime 中立性** — skill 必须能在 Claude Code、Codex、Cursor、OpenClaw、Hermes 等任何 skills-compatible runtime 中正常运行。除非 skill 名明确绑定单一 runtime（如 `xxx-codex`、`example-skill-b-codex`），任何「在 Claude Code 里」「Claude Code skill」「单一 badge 钉死」「安装命令只给 `.claude/skills/` 一种路径」都视为 gate 不通过，须在 P0 优先修复（详见「Runtime 适配性审查」章节）
 
 ---
 
@@ -396,7 +395,7 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 
 ### 单个优化
 ```
-用户："优化 huashu-slides 这个skill"
+用户："优化 example-skill-b 这个skill"
 → 只对指定skill执行 Phase 0.5-2
 ```
 
@@ -431,8 +430,9 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 ### 学术依据 & Credits
 
 - **SkillLens**（arXiv [2605.23899](https://arxiv.org/abs/2605.23899)）：9 维 rubric 的实证来源（LLM 自评 46.4% → 加 meta-skill 三维度后 73.8%）。
-- **SkillOpt**（arXiv [2605.23904](https://arxiv.org/abs/2605.23904)）：validation-gated edits 形式化框架。代码 [github.com/microsoft/SkillOpt](https://github.com/microsoft/SkillOpt)（`pip install skillopt`）、项目页 [microsoft.github.io/SkillOpt](https://microsoft.github.io/SkillOpt/)。🤝 2026-06-03 微软官方仓库已把 darwin-skill 列入集成名单。
-- **autoresearch**：[github.com/karpathy/autoresearch](https://github.com/karpathy/autoresearch)，本 skill 1.0 的原始灵感。
+- **SkillOpt**（arXiv [2605.23904](https://arxiv.org/abs/2605.23904)）：validation-gated edits 形式化框架。
+- **autoresearch**：[github.com/karpathy/autoresearch](https://github.com/karpathy/autoresearch)：自主实验循环与 git ratchet 思路来源。
+- **Darwin Skill 2.0**：`pangu-skill` 的机制蓝本。本项目保留其优化器架构，并重写为 Pangu 品牌。
 
 ---
 
@@ -464,7 +464,7 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
    - data-field="date" → 当前日期
 3. 随机选择风格：hash 设为 swiss/terminal/newspaper 之一
 4. 用 scripts/screenshot.mjs 截图（2x 高清，只截 .card 元素，自动 open 图片）：
-   node .claude/skills/darwin-skill/scripts/screenshot.mjs \
+   node pangu-skill/scripts/screenshot.mjs \
      /abs/path/to/card.html /abs/path/to/output.png
    # 回退方案（脚本失败时）：
    npx playwright screenshot "file:///path/to/card.html#[theme]" \
@@ -488,5 +488,5 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 
 ### 品牌元素
 
-- 顶部：Darwin.skill 品牌标识 + 日期
-- 底部：「Train your Skills like you train your models」+ github.com/alchaincyf/darwin-skill
+- 顶部：Pangu.skill 品牌标识 + 日期
+- 底部：「Train your Skills like you train your models」+ pangu-skill
