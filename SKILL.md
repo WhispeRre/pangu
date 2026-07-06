@@ -38,7 +38,7 @@ autoresearch 的精髓：
 | 3 | **失败模式编码** | 12 | **必须显式编码失败模式**（写出"如果 X 失败 → Y"的明确分支）；有fallback路径、错误恢复；**只写正向流程而不写失败分支扣 ≥3 分**（SkillLens meta-skill 维度） |
 | 4 | **检查点设计** | 6 | 关键决策前有用户确认、防止自主失控；**检查点必须显性标记（🔴/STOP/CHECKPOINT），仅靠"如果...建议..."措辞不算** |
 | 5 | **可执行具体性** | 17 | 不模糊、有具体参数/格式/示例、可直接执行；**禁止"建议/可以考虑/根据情况/灵活把握/视情况而定"等软化措辞**——出现 ≥3 处扣 ≥3 分（SkillLens actionable specificity 维度） |
-| 6 | **资源整合度** | 4 | references/scripts/assets引用正确、路径可达 |
+| 6 | **资源整合度** | 4 | references/scripts/templates引用正确、路径可达 |
 
 ### 效果维度（35分）— 需要实测
 
@@ -92,7 +92,9 @@ skill 应当支持 Claude Code / Codex / Cursor / OpenClaw / Hermes / Gemini CLI
 ### Phase 1 基线评估时强制跑一次红灯扫描
 
 ```bash
-grep -nE "(在 Claude[ ]Code|Claude[ ]Code skill|Claude[ ]Code 用户|Cursor[ ]only|Codex[ ]中|^\[!\[Claude[ ]Code|~/\.claude/skills/[a-z]|/plugin[ ]install\b)" SKILL.md README.md 2>/dev/null
+legacy_name="$(printf '%s%s' 'dar' 'win')"
+legacy_cn="$(printf '%s%s' '达' '尔文')"
+grep -nE "(在 Claude[ ]Code|Claude[ ]Code skill|Claude[ ]Code 用户|Cursor[ ]only|Codex[ ]中|^\[!\[Claude[ ]Code|~/\.claude/skills/[a-z]|/plugin[ ]install\b|${legacy_name}[-]skill|${legacy_cn})" SKILL.md README.md 2>/dev/null
 ```
 
 输出非空 = 红灯命中 → 强制把 Phase 2 第一轮定为 P0「runtime drift 修复」（写入 results.tsv 的 note 列 `runtime_warn=N`）。
