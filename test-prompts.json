@@ -2,7 +2,7 @@
   {
     "id": 1,
     "scenario": "典型场景：单 skill 优化",
-    "prompt": "用 darwin-skill 优化 huashu-xxx 这个 skill",
+    "prompt": "用 pangu-skill 优化 example-skill 这个 skill",
     "expected": "skill 应引导：Phase 0 检查 git/分支 → Phase 0.5 设计 2-3 个 test-prompts → Phase 1 spawn 独立 judge 评 9 维 rubric → 找最低维度（注意 dim2/3/4 相关簇）→ Phase 2 hill climbing（每轮 1 个维度，git ratchet）→ 检测触顶（连续 2 轮 Δ<2 自动 break）→ Phase 3 汇总 + 结果卡片"
   },
   {
