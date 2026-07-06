@@ -87,12 +87,12 @@ rubric 设计依据来自 **SkillLens 论文（arXiv 2605.23899）** + **本机 
 
 ## Runtime 适配性审查（gate 项，独立于 9 维度评分）
 
-skill 应当能在 Claude Code / Codex / Cursor / OpenClaw / Hermes / Gemini CLI / OpenCode 等 50+ skills-compatible runtime 通用——否则其他 agent 解析时会被「在 Claude Code 里」「Claude Code skill」等措辞误判为「不是给我用的」直接拒装（实例：nuwa-skill 因此被 Marvis agent 拒绝）。
+skill 应当支持 Claude Code / Codex / Cursor / OpenClaw / Hermes / Gemini CLI / OpenCode 等 50+ skills-compatible runtime。避免单一 runtime 绑定措辞，否则其他 agent 解析时可能误判为「不是给我用的」并拒装。
 
 ### Phase 1 基线评估时强制跑一次红灯扫描
 
 ```bash
-grep -nE "(在 Claude Code|Claude Code skill|Claude Code 用户|Cursor only|Codex 中|^\[!\[Claude Code|~/\.claude/skills/[a-z]|/plugin install\b)" SKILL.md README.md 2>/dev/null
+grep -nE "(在 Claude[ ]Code|Claude[ ]Code skill|Claude[ ]Code 用户|Cursor[ ]only|Codex[ ]中|^\[!\[Claude[ ]Code|~/\.claude/skills/[a-z]|/plugin[ ]install\b)" SKILL.md README.md 2>/dev/null
 ```
 
 输出非空 = 红灯命中 → 强制把 Phase 2 第一轮定为 P0「runtime drift 修复」（写入 results.tsv 的 note 列 `runtime_warn=N`）。
@@ -303,7 +303,7 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 按优先级排序，每轮只做最高优先级的一个：
 
 ### P0: Runtime 适配性问题（gate 项命中 → 必须先修）
-- README/SKILL.md 出现红灯措辞（如「在 Claude Code 里」「Claude Code skill」）→ 替换为 runtime-neutral 措辞
+- README/SKILL.md 出现单一 runtime 绑定措辞 → 替换为 runtime-neutral 措辞
 - Badge 钉死单一 runtime → 改为 `Agent Skills Standard` + `skills.sh` + `Multi-Runtime` 三个中立 badge
 - 安装章节只给一种 runtime 的路径 → 改为「一行命令（auto-detect）+ 手动路径表 + 作为参考资料」三层结构
 - 工作流硬编码 runtime-specific 工具且无 fallback → 给出通用替代方案或标注「仅在某 runtime 可用」
@@ -380,7 +380,7 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 5. **尊重当前 skill 风格** — 中文为主、简洁为上
 6. **可回滚** — 所有改动在git分支上，用git revert而非reset --hard
 7. **评分独立性** — 效果维度必须用子agent或至少干跑验证，不能在同一上下文里「改完直接评」
-8. **Runtime 中立性** — skill 必须能在 Claude Code、Codex、Cursor、OpenClaw、Hermes 等任何 skills-compatible runtime 中正常运行。除非 skill 名明确绑定单一 runtime（如 `xxx-codex`、`example-skill-b-codex`），任何「在 Claude Code 里」「Claude Code skill」「单一 badge 钉死」「安装命令只给 `.claude/skills/` 一种路径」都视为 gate 不通过，须在 P0 优先修复（详见「Runtime 适配性审查」章节）
+8. **Runtime 中立性** — skill 必须支持 Claude Code、Codex、Cursor、OpenClaw、Hermes 等任何 skills-compatible runtime。除非 skill 名明确绑定单一 runtime（如 `xxx-codex`、`example-skill-b-codex`），任何单一 runtime 绑定措辞、单一 badge 钉死、安装命令只给某 runtime 私有路径，都视为 gate 不通过，须在 P0 优先修复（详见「Runtime 适配性审查」章节）
 
 ---
 
