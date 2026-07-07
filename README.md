@@ -145,4 +145,4 @@ npm install
 
 ## License
 
-MIT
+MIT. See [LICENSE](LICENSE).

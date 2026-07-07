@@ -145,4 +145,4 @@ These sources provide the methodology; `pangu-skill` organizes them into a pract
 
 ## License
 
-MIT
+MIT. See [LICENSE](LICENSE).
